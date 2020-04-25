@@ -1,43 +1,56 @@
 import React from 'react';
 import './App.css';
-
+import Button from "./Button";
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: 123456789
+    };
+  }
+
+
+  pressKey = (key) => () => {
+    console.log(key);
+  };
+
   render() {
+    const { value } = this.state;
     return (
       <div className='App'>
         <div className='calculator'>
           <div className='screen'>
             <div className='screen'>
-              <div className='screen-text'>123456789</div>
+              <div className='screen-text'>{value}</div>
             </div>
           </div>
           <div className='keys'>
             <div className='operations'>
-              <div className='key numeric-key'><span>AC</span></div>
-              <div className='key numeric-key'><span>C</span></div>
-              <div className='key numeric-key'><span>?</span></div>
+              <Button isNumeric value='AC' onClick={this.pressKey('AC')}/>
+              <Button isNumeric value='C' onClick={this.pressKey('C')} />
+              <Button isNumeric value='⌫' onClick={this.pressKey('⌫')} />
             </div>
             <div className='numeric'>
-              <div className='key numeric-key'><span>7</span></div>
-              <div className='key numeric-key'><span>8</span></div>
-              <div className='key numeric-key'><span>9</span></div>
-              <div className='key numeric-key'><span>4</span></div>
-              <div className='key numeric-key'><span>5</span></div>
-              <div className='key numeric-key'><span>6</span></div>
-              <div className='key numeric-key'><span>1</span></div>
-              <div className='key numeric-key'><span>2</span></div>
-              <div className='key numeric-key'><span>3</span></div>
-              <div className='key numeric-key'><span>+/-</span></div>
-              <div className='key numeric-key'><span>0</span></div>
-              <div className='key numeric-key'><span>.</span></div>
+              <Button isNumeric value='7' onClick={this.pressKey('7')}/>
+              <Button isNumeric value='8' onClick={this.pressKey('8')}/>
+              <Button isNumeric value='9' onClick={this.pressKey('9')}/>
+              <Button isNumeric value='4' onClick={this.pressKey('4')}/>
+              <Button isNumeric value='5' onClick={this.pressKey('5')}/>
+              <Button isNumeric value='6' onClick={this.pressKey('6')}/>
+              <Button isNumeric value='1' onClick={this.pressKey('1')}/>
+              <Button isNumeric value='2' onClick={this.pressKey('2')}/>
+              <Button isNumeric value='3' onClick={this.pressKey('3')}/>
+              <Button isNumeric value='+' onClick={this.pressKey('+')}/>
+              <Button isNumeric value='0' onClick={this.pressKey('0')}/>
+              <Button isNumeric value='.' onClick={this.pressKey('.')}/>
             </div>
             <div className='operators'>
-              <div className='key operator-key'><span>/</span></div>
-              <div className='key operator-key'><span>x</span></div>
-              <div className='key operator-key'><span>-</span></div>
-              <div className='key operator-key'><span>+</span></div>
-              <div className='key operator-key'><span>=</span></div>
+              <Button isOperator value='/' onClick={this.pressKey('/')}/>
+              <Button isOperator value='x' onClick={this.pressKey('x')}/>
+              <Button isOperator value='-' onClick={this.pressKey('-')}/>
+              <Button isOperator value='+' onClick={this.pressKey('+')}/>
+              <Button isOperator value='=' onClick={this.pressKey('=')}/>
             </div>
           </div>
         </div>
