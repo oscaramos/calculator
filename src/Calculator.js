@@ -73,14 +73,28 @@ class Calculator
   divi() {this.state.op = (x, y) => Math.floor(x/y); this.state.op_symbol = '/'; return this;}
 
   AC() {
+    this.state.lastvalue = null;
     this.state.left = null;
     this.state.right = null;
     this.state.op = null;
+    this.state.op_symbol = '';
+    this.state.err = false;
     return this;
   }
 
   C() {
     this.state.right = 0;
+    return this;
+  }
+
+  sign() {
+    const { op, left, right, lastvalue} = this.state;
+    if (lastvalue)
+      this.state.lastvalue = -this.state.lastvalue;
+    else if(op === null)
+      this.state.left = -left;
+    else
+      this.state.right = -right;
     return this;
   }
 }

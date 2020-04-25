@@ -154,3 +154,19 @@ describe('Limit to 8 digits', () => {
   });
 });
 
+describe('Change sign', () => {
+  it('15(+/-)+20=5', () => {
+    calculator.num(15).sign().plus().num(20).equal();
+    expectScreen('5');
+  });
+
+  it('15+20(+/-)=-5', () => {
+    calculator.num(15).plus().num(20).sign().equal();
+    expectScreen('-5');
+  });
+
+  it('15+20=35(+/-)', () => {
+    calculator.num(15).plus().num(20).equal().sign();
+    expectScreen('-35');
+  });
+});
