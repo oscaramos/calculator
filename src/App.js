@@ -10,14 +10,12 @@ class App extends React.Component {
     super(props);
     this.state = {
       calculator: new Calculator(),
-      value: 0
+      screen: 0
     };
   }
 
   onPressKey = (key) => () => {
-    console.log(key);
     const { calculator } = this.state;
-    console.log(calculator.getValue());
     const isDigit = (x) => /\d/.exec(x);
 
     if(isDigit(key))
@@ -26,20 +24,18 @@ class App extends React.Component {
     if(key === '-') calculator.minus();
     if(key === '*') calculator.mult();
     if(key === '/') calculator.divi();
-    if(key === '=') {
-      calculator.equal();
-      this.setState({value: calculator.getValue()});
-    }
+    if(key === '=') calculator.equal();
+    this.setState({screen: calculator.getScreen()});
   };
 
   render() {
-    const { value } = this.state;
+    const { screen } = this.state;
     return (
       <div className='App'>
         <div className='calculator'>
           <div className='screen'>
             <div className='screen'>
-              <div className='screen-text'>{value}</div>
+              <div className='screen-text'>{screen}</div>
             </div>
           </div>
           <div className='keys'>
