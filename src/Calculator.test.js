@@ -182,3 +182,20 @@ describe('floating numbers', () => {
     expectScreen('3');
   });
 })
+
+describe('Delete button', () => {
+  it('12<+1=2', () => {
+    calculator.num(12).del().plus().dig(1).equal();
+    expectScreen('2');
+  });
+
+  it('1+12<=2', () => {
+    calculator.dig(1).plus().num(12).del().equal();
+    expectScreen('2');
+  });
+
+  it('12+12=24<+2=4', () => {
+    calculator.num(12).plus().num(12).equal().del().plus().num(2).equal();
+    expectScreen('4');
+  });
+});

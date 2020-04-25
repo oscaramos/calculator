@@ -28,13 +28,13 @@ class Calculator
 
   dig(number) {
     const { op, right, left, lastvalue } = this.state;
-    if (lastvalue) {
+    if (this.toLastValue()) {
       if (op)
         this.state.left = lastvalue;
       this.state.lastvalue = null;
     }
 
-    if(op === null){
+    if(this.toLeft()){
       const newleft = left + number.toString();
       if(newleft.length <= this.state.MAXDIG)
         this.state.left = newleft;
@@ -72,12 +72,12 @@ class Calculator
     this.state.right = '';
     return this;
   }
+
   plus() {this.state.op = (x, y) => x+y; this.state.op_symbol = '+'; return this;}
+
   minus() {this.state.op = (x, y) => x-y; this.state.op_symbol = '-'; return this;}
   mult() {this.state.op = (x, y) => x*y; this.state.op_symbol = '*'; return this;}
-
   divi() {this.state.op = (x, y) => Math.floor(x/y); this.state.op_symbol = '/'; return this;}
-
   AC() {
     this.state.lastvalue = null;
     this.state.left = '';
@@ -89,10 +89,9 @@ class Calculator
   }
 
   C() {
-    const { op, lastvalue } = this.state;
-    if (lastvalue)
+    if (this.toLastValue())
       this.state.lastvalue = '';
-    if(op === null)
+    if(this.toLeft())
       this.state.left = '';
     else
       this.state.right = '';
@@ -100,14 +99,33 @@ class Calculator
   }
 
   sign() {
-    const { op, left, right, lastvalue} = this.state;
-    if (lastvalue)
-      this.state.lastvalue = -this.state.lastvalue;
-    else if(op === null)
+    const { left, right, lastvalue } = this.state;
+    if (this.toLastValue())
+      this.state.lastvalue = -lastvalue;
+    else if(this.toLeft())
       this.state.left = -left;
     else
       this.state.right = -right;
     return this;
+  }
+
+  del() {
+    const { left, right, lastvalue } = this.state;
+    if (this.toLastValue())
+      this.state.lastvalue = lastvalue.slice(0, -1);
+    else if(this.toLeft())
+      this.state.left = left.slice(0, -1);
+    else
+      this.state.right = right.slice(0, -1);
+    return this;
+  }
+
+  toLeft() {
+    return this.state.op === null;
+  }
+
+  toLastValue() {
+    return this.state.lastvalue;
   }
 }
 
