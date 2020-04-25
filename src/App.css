@@ -19,7 +19,12 @@
 @media only screen and (max-width: 1000px) {
   .calculator {
     width: 100%;
-    background-color: lightblue;
+  }
+}
+
+@media only screen and (max-height: 400px) {
+  .calculator {
+    height: 400px;
   }
 }
 
