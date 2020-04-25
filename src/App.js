@@ -24,6 +24,8 @@ class App extends React.Component {
     if(key === 'x') calculator.mult();
     if(key === '/') calculator.divi();
     if(key === '=') calculator.equal();
+    if(key === 'AC') calculator.AC();
+    if(key === 'C') calculator.C();
     this.setState({screen: calculator.getScreen()});
   };
 
@@ -53,7 +55,7 @@ class App extends React.Component {
               <Button isNumeric value='1' onClick={this.onPressKey('1')}/>
               <Button isNumeric value='2' onClick={this.onPressKey('2')}/>
               <Button isNumeric value='3' onClick={this.onPressKey('3')}/>
-              <Button isNumeric value='+' onClick={this.onPressKey('+')}/>
+              <Button isNumeric value='+/-' onClick={this.onPressKey('+')}/>
               <Button isNumeric value='0' onClick={this.onPressKey('0')}/>
               <Button isNumeric value='.' onClick={this.onPressKey('.')}/>
             </div>
