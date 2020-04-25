@@ -27,6 +27,7 @@ class App extends React.Component {
     if(key === 'AC') calculator.AC();
     if(key === 'C') calculator.C();
     if(key === '+/-') calculator.sign();
+    if(key === '.') calculator.dot();
     this.setState({screen: calculator.getScreen()});
   };
 

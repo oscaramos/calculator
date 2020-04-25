@@ -170,3 +170,15 @@ describe('Change sign', () => {
     expectScreen('-35');
   });
 });
+
+describe('floating numbers', () => {
+  it('3.141', () => {
+    calculator.dig(3).dot().dig(1).dig(4).dig(1);
+    expectScreen('3.141');
+  });
+
+  it('1.5+1.5', () => {
+    calculator.num(1.5).plus().num(1.5).equal();
+    expectScreen('3');
+  });
+})

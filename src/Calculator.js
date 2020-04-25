@@ -2,9 +2,9 @@ class Calculator
 {
   constructor() {
     this.state = {
-      lastvalue: null,
-      left: null,
-      right: null,
+      lastvalue: '',
+      left: '',
+      right: '',
       op: null,
       op_symbol: '',
       MAXDIG: 8,
@@ -16,12 +16,12 @@ class Calculator
     const { right, op, op_symbol, left, lastvalue, err} = this.state;
     let ans = '';
     if(err)
-      ans = 'ERR';
+      ans += 'ERR';
     else {
-      if(lastvalue != null) ans += lastvalue.toString();
-      if(left != null) ans += left.toString();
+      if(lastvalue) ans += lastvalue;
+      if(left) ans += left;
       if(op != null) ans += op_symbol;
-      if(right != null) ans += right.toString();
+      if(right) ans += right;
     }
     return ans;
   }
@@ -35,20 +35,24 @@ class Calculator
     }
 
     if(op === null){
-      const newleft = left*10 + number;
-      if(newleft.toString().length <= this.state.MAXDIG)
+      const newleft = left + number.toString();
+      if(newleft.length <= this.state.MAXDIG)
         this.state.left = newleft;
     }
     else {
-      let newright = right*10 + number;
-      if(newright.toString().length <= this.state.MAXDIG)
+      let newright = right + number.toString();
+      if(newright.length <= this.state.MAXDIG)
         this.state.right = newright;
     }
     return this;
   }
 
+  dot() {
+    return this.dig('.');
+  }
+
   num(number) {
-    number.toString().split().forEach(x => this.dig(parseInt(x)));
+    number.toString().split().forEach(x => this.dig(x));
     return this;
   }
 
@@ -56,26 +60,28 @@ class Calculator
     const { left, right, op } = this.state;
     if(op)
     {
-      this.state.lastvalue = op(left, right);
-      if(this.state.lastvalue.toString().length > this.state.MAXDIG)
+      let lastVal = op(Number.parseFloat(left), Number.parseFloat(right));
+      lastVal = Math.round(lastVal*1000)/1000;
+      this.state.lastvalue = lastVal.toString();
+      if(this.state.lastvalue.length > this.state.MAXDIG)
         this.state.err = true;
     }
-    this.state.left = null;
+    this.state.left = '';
     this.state.op = null;
     this.state.op_symbol = '';
-    this.state.right = null;
+    this.state.right = '';
     return this;
   }
-
   plus() {this.state.op = (x, y) => x+y; this.state.op_symbol = '+'; return this;}
   minus() {this.state.op = (x, y) => x-y; this.state.op_symbol = '-'; return this;}
   mult() {this.state.op = (x, y) => x*y; this.state.op_symbol = '*'; return this;}
+
   divi() {this.state.op = (x, y) => Math.floor(x/y); this.state.op_symbol = '/'; return this;}
 
   AC() {
     this.state.lastvalue = null;
-    this.state.left = null;
-    this.state.right = null;
+    this.state.left = '';
+    this.state.right = '';
     this.state.op = null;
     this.state.op_symbol = '';
     this.state.err = false;
@@ -83,7 +89,13 @@ class Calculator
   }
 
   C() {
-    this.state.right = 0;
+    const { op, lastvalue } = this.state;
+    if (lastvalue)
+      this.state.lastvalue = '';
+    if(op === null)
+      this.state.left = '';
+    else
+      this.state.right = '';
     return this;
   }
 
