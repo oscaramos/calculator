@@ -18,11 +18,10 @@ class App extends React.Component {
     const { calculator } = this.state;
     const isDigit = (x) => /\d/.exec(x);
 
-    if(isDigit(key))
-      calculator.dig(parseInt(key));
+    if(isDigit(key)) calculator.dig(parseInt(key));
     if(key === '+') calculator.plus();
     if(key === '-') calculator.minus();
-    if(key === '*') calculator.mult();
+    if(key === 'x') calculator.mult();
     if(key === '/') calculator.divi();
     if(key === '=') calculator.equal();
     this.setState({screen: calculator.getScreen()});

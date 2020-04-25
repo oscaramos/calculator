@@ -13,18 +13,19 @@ class Calculator
   getScreen() {
     const { tmp, op, op_symbol, value, lastvalue} = this.state;
     let ans = '';
-    if(lastvalue) ans += lastvalue.toString();
-    if(value) ans += value.toString();
-    if(op) ans += op_symbol;
-    if(tmp) ans += tmp.toString();
+    if(lastvalue != null) ans += lastvalue.toString();
+    if(value != null) ans += value.toString();
+    if(op != null) ans += op_symbol;
+    if(tmp != null) ans += tmp.toString();
     return ans;
   }
 
   dig(number) {
     const { op, tmp, value, lastvalue } = this.state;
     if (lastvalue) {
-      if (!op) this.state.lastvalue = 0;
-      if (op) this.state.value = lastvalue;
+      if (op)
+        this.state.value = lastvalue;
+      this.state.lastvalue = null;
     }
 
     if(op === null)

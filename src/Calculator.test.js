@@ -49,6 +49,24 @@ describe('Screen', () => {
     calculator.equal();
     expectScreen('6');
   });
+
+  it('10+10=20*2=40', () => {
+    expectScreen('');
+    calculator.num(10);
+    expectScreen('10');
+    calculator.plus();
+    expectScreen('10+');
+    calculator.num(10);
+    expectScreen('10+10');
+    calculator.equal();
+    expectScreen('20');
+    calculator.mult();
+    expectScreen('20*');
+    calculator.dig(2);
+    expectScreen('20*2');
+    calculator.equal();
+    expectScreen('40');
+  });
 });
 
 describe('One operator and equal', () => {
@@ -80,6 +98,11 @@ describe('One operator and equal', () => {
   it('7/3=2', () => {
     calculator.dig(7).divi().dig(3).equal();
     expectScreen('2');
+  });
+
+  it('2/3=0', () => {
+    calculator.dig(2).divi().dig(3).equal();
+    expectScreen('0');
   });
 });
 
